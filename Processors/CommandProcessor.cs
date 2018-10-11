@@ -14,7 +14,7 @@ namespace ManaMist.Processors
             this.gameManager = gameManager;
         }
 
-        public void process(Command command)
+        public void Process(Command command)
         {
             gameManager.DoCommand(command);
         }

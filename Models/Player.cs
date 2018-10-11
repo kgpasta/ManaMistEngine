@@ -2,17 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ManaMist.Controllers;
+using ManaMist.Models;
 using ManaMist.Utility;
 
 public class Player
 {
-    public int id;
-    public List<Phase> Phases = new List<Phase>();
-    public Phase CurrentPhase = Phase.WAITING;
-    public int PhaseIndex = 0;
+    public int id { get; set; }
+    private List<Phase> Phases = new List<Phase>();
+    private Phase CurrentPhase = Phase.WAITING;
+    private int PhaseIndex = 0;
+    private Dictionary<string, Entity> entities = new Dictionary<string, Entity>();
 
-    public Player(TurnController turnController)
+    public Player(int id, TurnController turnController)
     {
+        this.id = id;
         turnController.OnTurnStart += InitializeTurn;
 
         Phases.Add(Phase.ACTIVE);
@@ -52,6 +55,21 @@ public class Player
             PhaseIndex = 1;
             CurrentPhase = Phase.ACTIVE;
         }
+    }
+
+    public void AddEntity(Entity entity)
+    {
+        entities[entity.id] = entity;
+    }
+
+    public void RemoveEntity(Entity entity)
+    {
+        entities.Remove(entity.id);
+    }
+
+    public Entity GetEntity(string id)
+    {
+        return entities.ContainsKey(id) ? entities[id] : null;
     }
 
 }

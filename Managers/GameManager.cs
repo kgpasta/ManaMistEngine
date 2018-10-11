@@ -17,8 +17,8 @@ namespace ManaMist.Managers
 
         public GameManager(TurnController turnController, MapController mapController)
         {
-            playerOne = new Player(turnController);
-            playerTwo = new Player(turnController);
+            playerOne = new Player(0, turnController);
+            playerTwo = new Player(1, turnController);
             activePlayer = playerOne;
 
             this.mapController = mapController;

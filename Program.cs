@@ -19,14 +19,14 @@ namespace ManaMistEngine
             {
                 string input = Console.In.ReadLine();
 
-                Command? command = stringToCommand(input);
+                Command? command = StringToCommand(input);
                 if(command.HasValue) {
-                    commandProcessor.process(command.Value);
+                    commandProcessor.Process(command.Value);
                 }
             }
         }
 
-        public static Command? stringToCommand(string input)
+        public static Command? StringToCommand(string input)
         {
             object result;
             Enum.TryParse(typeof (Command), input, true, out result);

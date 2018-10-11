@@ -18,7 +18,7 @@ namespace ManaMist.Controllers
 
         public MapController() { }
 
-        public void addToMap(Coordinate coordinate, Entity entity)
+        public void AddToMap(Coordinate coordinate, Entity entity)
         {
             if (!coordinateToEntities.ContainsKey(coordinate))
             {
@@ -30,7 +30,7 @@ namespace ManaMist.Controllers
             entityIdToCoordinate[entity.id] = coordinate;
         }
 
-        public Coordinate getPositionOfEntity(Entity entity)
+        public Coordinate GetPositionOfEntity(Entity entity)
         {
             if (entityIdToCoordinate.ContainsKey(entity.id))
             {
@@ -40,7 +40,7 @@ namespace ManaMist.Controllers
             return null;
         }
 
-        public List<Entity> getEntitiesAtCoordinate(Coordinate coordinate)
+        public List<Entity> GetEntitiesAtCoordinate(Coordinate coordinate)
         {
             if (coordinateToEntities.ContainsKey(coordinate))
             {
@@ -50,7 +50,7 @@ namespace ManaMist.Controllers
             return new List<Entity>();
         }
 
-        public void removeFromMap(Entity entity)
+        public void RemoveFromMap(Entity entity)
         {
             if (entityIdToCoordinate.ContainsKey(entity.id))
             {
@@ -65,12 +65,12 @@ namespace ManaMist.Controllers
             }
         }
 
-        public void moveEntity(Coordinate coordinate, Entity entity)
+        public void MoveEntity(Coordinate coordinate, Entity entity)
         {
-            if (getPositionOfEntity(entity) != null)
+            if (GetPositionOfEntity(entity) != null)
             {
-                removeFromMap(entity);
-                addToMap(coordinate, entity);
+                RemoveFromMap(entity);
+                AddToMap(coordinate, entity);
             }
         }
 
