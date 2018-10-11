@@ -1,7 +1,7 @@
 using System;
+using ManaMist.Commands;
 using ManaMist.Controllers;
 using ManaMist.Processors;
-using ManaMist.Utility;
 
 namespace ManaMist.Managers
 {
@@ -40,7 +40,7 @@ namespace ManaMist.Managers
 
         public void DoCommand(Command command)
         {
-            Console.WriteLine(activePlayer.id + " is doing command: " + command.ToString());
+            Console.WriteLine(activePlayer.id + " is doing command: " + command.type.ToString());
         }
     }
 }
