@@ -30,11 +30,11 @@ namespace ManaMist.Controllers
             entityIdToCoordinate[entity.id] = coordinate;
         }
 
-        public Coordinate GetPositionOfEntity(Entity entity)
+        public Coordinate GetPositionOfEntity(string id)
         {
-            if (entityIdToCoordinate.ContainsKey(entity.id))
+            if (entityIdToCoordinate.ContainsKey(id))
             {
-                return entityIdToCoordinate[entity.id];
+                return entityIdToCoordinate[id];
             }
 
             return null;
@@ -67,7 +67,7 @@ namespace ManaMist.Controllers
 
         public void MoveEntity(Coordinate coordinate, Entity entity)
         {
-            if (GetPositionOfEntity(entity) != null)
+            if (GetPositionOfEntity(entity.id) != null)
             {
                 RemoveFromMap(entity);
                 AddToMap(coordinate, entity);

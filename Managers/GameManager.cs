@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ManaMist.Commands;
 using ManaMist.Controllers;
 using ManaMist.Models;
@@ -44,7 +45,27 @@ namespace ManaMist.Managers
 
         public void DoCommand(Command command)
         {
-            Console.WriteLine(activePlayer.id + " is doing command: " + command.type.ToString());
+            switch (command.type)
+            {
+                case CommandType.DESCRIBE:
+                    DescribeCommand describeCommand = (DescribeCommand)command;
+                    if (describeCommand.coordinate != null)
+                    {
+                        List<Entity> entities = mapController.GetEntitiesAtCoordinate(describeCommand.coordinate);
+
+                        foreach (Entity entity in entities)
+                        {
+                            Console.WriteLine(entity.ToString());
+                        }
+                    }
+                    break;
+                case CommandType.SELECT:
+                    SelectCommand selectCommand = (SelectCommand)command;
+                    activePlayer.SelectEntity(selectCommand.id);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void SeedPlayer(Player player, int offset)

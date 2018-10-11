@@ -12,6 +12,7 @@ public class Player
     private Phase CurrentPhase = Phase.WAITING;
     private int PhaseIndex = 0;
     private Dictionary<string, Entity> entities = new Dictionary<string, Entity>();
+    private Entity selectedEntity = null;
 
     public Player(int id, TurnController turnController)
     {
@@ -70,6 +71,14 @@ public class Player
     public Entity GetEntity(string id)
     {
         return entities.ContainsKey(id) ? entities[id] : null;
+    }
+
+    public void SelectEntity(string id)
+    {
+        if (entities.ContainsKey(id))
+        {
+            selectedEntity = entities[id];
+        }
     }
 
 }

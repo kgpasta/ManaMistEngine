@@ -3,6 +3,7 @@ using ManaMist.Controllers;
 using ManaMist.Managers;
 using ManaMist.Processors;
 using ManaMist.Commands;
+using ManaMist.Utility;
 
 namespace ManaMistEngine
 {
@@ -52,6 +53,7 @@ namespace ManaMistEngine
             switch (commandType)
             {
                 case CommandType.DESCRIBE:
+                    command = new DescribeCommand(new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])));
                     break;
                 case CommandType.SELECT:
                     command = new SelectCommand(inputs[1]);

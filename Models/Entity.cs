@@ -1,3 +1,6 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace ManaMist.Models
 {
     public abstract class Entity
@@ -13,6 +16,13 @@ namespace ManaMist.Models
             this.id = id;
             this.name = name;
             this.cost = cost;
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(
+           this, Formatting.Indented,
+           new JsonConverter[] { new StringEnumConverter() });
         }
     }
 }
