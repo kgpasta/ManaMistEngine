@@ -9,9 +9,9 @@ namespace ManaMist.Controllers
 {
     public class MapController
     {
-        private Dictionary<Coordinate, List<Entity>> coordinateToEntities { get; set; }
+        private Dictionary<Coordinate, List<Entity>> coordinateToEntities { get; set; } = new Dictionary<Coordinate, List<Entity>>();
 
-        private Dictionary<string, Coordinate> entityIdToCoordinate { get; set; }
+        private Dictionary<string, Coordinate> entityIdToCoordinate { get; set; } = new Dictionary<string, Coordinate>();
 
         private const int MAP_DIMENSION = 100;
 

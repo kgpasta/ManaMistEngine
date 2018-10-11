@@ -8,9 +8,9 @@ namespace ManaMist.Models
 
         public Cost cost { get; set; }
 
-        public Entity(string name, Cost cost)
+        public Entity(string id, string name, Cost cost)
         {
-            this.id = System.Guid.NewGuid().ToString();
+            this.id = id;
             this.name = name;
             this.cost = cost;
         }

@@ -19,15 +19,15 @@ namespace ManaMist.Managers
 
         public GameManager(TurnController turnController, MapController mapController)
         {
+            this.mapController = mapController;
+
+            turnController.OnTurnStart += setActivePlayer;
+
             playerOne = new Player(0, turnController);
             SeedPlayer(playerOne, 0);
             playerTwo = new Player(1, turnController);
             SeedPlayer(playerTwo, 10);
             activePlayer = playerOne;
-
-            this.mapController = mapController;
-
-            turnController.OnTurnStart += setActivePlayer;
         }
 
         private void setActivePlayer(object sender, TurnEventArgs args)
@@ -50,12 +50,12 @@ namespace ManaMist.Managers
         private void SeedPlayer(Player player, int offset)
         {
             Coordinate townCenterCoordinate = new Coordinate(offset, offset);
-            TownCenter townCenter = new TownCenter();
+            TownCenter townCenter = new TownCenter("towncenter0-player" + player.id);
             player.AddEntity(townCenter);
             mapController.AddToMap(townCenterCoordinate, townCenter);
 
             Coordinate workerCoordinate = new Coordinate(offset + 1, offset + 1);
-            Worker worker = new Worker();
+            Worker worker = new Worker("worker0-player" + player.id);
             player.AddEntity(worker);
             mapController.AddToMap(workerCoordinate, worker);
         }

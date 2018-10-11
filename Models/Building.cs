@@ -4,7 +4,7 @@ namespace ManaMist.Models
     {
         public int buildTurns { get; set; }
 
-        public Building(string name, Cost cost, int buildTurns) : base(name, cost)
+        public Building(string id, string name, Cost cost, int buildTurns) : base(id, name, cost)
         {
             this.buildTurns = buildTurns;
         }

@@ -16,6 +16,7 @@ namespace ManaMist.Processors
 
         public void Process(Command command)
         {
+            Console.WriteLine(command.ToString());
             gameManager.DoCommand(command);
         }
     }

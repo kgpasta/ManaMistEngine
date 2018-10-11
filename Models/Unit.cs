@@ -4,7 +4,7 @@ namespace ManaMist.Models
     {
         public int movementRange { get; set; }
 
-        public Unit(string name, Cost cost, int movementRange) : base(name, cost)
+        public Unit(string id, string name, Cost cost, int movementRange) : base(id, name, cost)
         {
             this.movementRange = movementRange;
         }

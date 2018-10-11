@@ -21,23 +21,50 @@ namespace ManaMistEngine
             {
                 string input = Console.In.ReadLine();
 
-                CommandType? command = StringToCommand(input);
-                if(command.HasValue) {
-                    //commandProcessor.Process(command.Value);
+                string[] inputs = input.Split();
+
+                CommandType? commandType = StringToCommandType(inputs[0]);
+                if (commandType.HasValue)
+                {
+                    Command command = ArrayToCommand(commandType.Value, inputs);
+
+                    commandProcessor.Process(command);
                 }
             }
         }
 
-        public static CommandType? StringToCommand(string input)
+        public static CommandType? StringToCommandType(string input)
         {
             object result;
-            Enum.TryParse(typeof (CommandType), input, true, out result);
-            if (result == null) {
+            Enum.TryParse(typeof(CommandType), input, true, out result);
+            if (result == null)
+            {
                 Console.WriteLine("Could not parse command, try 'describe', 'select', 'move', or 'build'");
                 return null;
             }
 
-            return (CommandType) result;
+            return (CommandType)result;
+        }
+
+        public static Command ArrayToCommand(CommandType commandType, string[] inputs)
+        {
+            Command command = null;
+            switch (commandType)
+            {
+                case CommandType.DESCRIBE:
+                    break;
+                case CommandType.SELECT:
+                    command = new SelectCommand(inputs[1]);
+                    break;
+                case CommandType.MOVE:
+                    break;
+                case CommandType.BUILD:
+                    break;
+                default:
+                    break;
+            }
+
+            return command;
         }
     }
 }
