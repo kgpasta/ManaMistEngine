@@ -7,5 +7,4 @@
 - resource count
 
 ### Map
-* 
 - seeded resources
