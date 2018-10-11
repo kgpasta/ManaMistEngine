@@ -4,54 +4,58 @@ using System.Collections.Generic;
 using ManaMist.Controllers;
 using ManaMist.Utility;
 
-public class PlayerController
+namespace ManaMist.Controllers
 {
-    public int PlayerId = 1;
-    public List<Phase> Phases = new List<Phase>();
-    public Phase CurrentPhase = Phase.WAITING;
-    public int PhaseIndex = 0;
-
-    public PlayerController(ITurnController turnController)
+    public class PlayerController
     {
-        turnController.OnTurnStart += InitializeTurn;
+        public int PlayerId = 1;
+        public List<Phase> Phases = new List<Phase>();
+        public Phase CurrentPhase = Phase.WAITING;
+        public int PhaseIndex = 0;
 
-        Phases.Add(Phase.ACTIVE);
-    }
+        public PlayerController(TurnController turnController)
+        {
+            turnController.OnTurnStart += InitializeTurn;
 
-    private void InitializeTurn(object sender, TurnEventArgs args)
-    {
-        if (args.player == PlayerId && args.turnNumber != 0)
-        {
-            CurrentPhase = Phases[PhaseIndex];
-        }
-    }
-
-    private void IncrementPhase()
-    {
-        PhaseIndex++;
-        if (Phases.Count > PhaseIndex)
-        {
-            CurrentPhase = Phases[PhaseIndex];
-        }
-        else
-        {
-            PhaseIndex = 0;
-            CurrentPhase = Phase.WAITING;
+            Phases.Add(Phase.ACTIVE);
         }
 
-    }
-
-    private void DecrementPhase()
-    {
-        PhaseIndex--;
-        if (PhaseIndex >= 0)
+        private void InitializeTurn(object sender, TurnEventArgs args)
         {
-            CurrentPhase = Phases[PhaseIndex];
+            if (args.player == PlayerId && args.turnNumber != 0)
+            {
+                CurrentPhase = Phases[PhaseIndex];
+            }
         }
-        else
+
+        private void IncrementPhase()
         {
-            PhaseIndex = 1;
-            CurrentPhase = Phase.ACTIVE;
+            PhaseIndex++;
+            if (Phases.Count > PhaseIndex)
+            {
+                CurrentPhase = Phases[PhaseIndex];
+            }
+            else
+            {
+                PhaseIndex = 0;
+                CurrentPhase = Phase.WAITING;
+            }
+
+        }
+
+        private void DecrementPhase()
+        {
+            PhaseIndex--;
+            if (PhaseIndex >= 0)
+            {
+                CurrentPhase = Phases[PhaseIndex];
+            }
+            else
+            {
+                PhaseIndex = 1;
+                CurrentPhase = Phase.ACTIVE;
+            }
+
         }
 
     }

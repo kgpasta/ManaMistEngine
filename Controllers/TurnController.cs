@@ -4,7 +4,18 @@ using System.Collections.Generic;
 
 namespace ManaMist.Controllers
 {
-    public class TurnController : ITurnController
+    public class TurnEventArgs : EventArgs
+    {
+        public TurnEventArgs(int turnNumber, int player)
+        {
+            this.turnNumber = turnNumber;
+            this.player = player;
+        }
+        public int player { get; set; }
+        public int turnNumber { get; set; }
+    }
+
+    public class TurnController
     {
         private Queue<int> playerQueue;
         public int currentPlayer;
