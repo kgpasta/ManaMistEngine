@@ -3,7 +3,8 @@
 ## Todo:
 
 ### Player
-- currently selected unit
+- build command
+- undo/redo command
 - resource count
 
 ### Map
