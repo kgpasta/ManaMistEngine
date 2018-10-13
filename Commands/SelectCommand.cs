@@ -4,7 +4,7 @@ namespace ManaMist.Commands
     {
         public string id { get; set; }
 
-        public SelectCommand(string id) : base(CommandType.SELECT)
+        public SelectCommand(int playerId, string id) : base(playerId, CommandType.SELECT)
         {
             this.id = id;
         }

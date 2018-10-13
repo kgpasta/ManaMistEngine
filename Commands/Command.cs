@@ -9,9 +9,12 @@ namespace ManaMist.Commands
     {
         public CommandType type { get; set; }
 
-        public Command(CommandType type)
+        public int playerId { get; set; }
+
+        public Command(int playerId, CommandType type)
         {
             this.type = type;
+            this.playerId = playerId;
         }
     }
 }

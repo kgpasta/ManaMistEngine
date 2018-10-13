@@ -58,10 +58,26 @@ namespace ManaMist.Managers
                             Console.WriteLine(entity.ToString());
                         }
                     }
+                    else if (describeCommand.entity != null)
+                    {
+                        Coordinate coordinate = mapController.GetPositionOfEntity(describeCommand.entity);
+                        if (coordinate != null)
+                        {
+                            Console.WriteLine(coordinate.ToString());
+                        }
+                        Entity entity = FindEntity(describeCommand.entity);
+                        Console.WriteLine(entity.ToString());
+
+                    }
                     break;
                 case CommandType.SELECT:
                     SelectCommand selectCommand = (SelectCommand)command;
                     activePlayer.SelectEntity(selectCommand.id);
+                    break;
+                case CommandType.MOVE:
+                    MoveCommand moveCommand = (MoveCommand)command;
+                    Entity moveCommandEntity = GetPlayerById(moveCommand.playerId).selectedEntity;
+                    mapController.MoveEntity(moveCommand.coordinate, moveCommandEntity);
                     break;
                 default:
                     break;
@@ -79,6 +95,27 @@ namespace ManaMist.Managers
             Worker worker = new Worker("worker0-player" + player.id);
             player.AddEntity(worker);
             mapController.AddToMap(workerCoordinate, worker);
+        }
+
+        private Entity FindEntity(string id)
+        {
+            Entity playerOneEntity = playerOne.GetEntity(id);
+            Entity playerTwoEntity = playerTwo.GetEntity(id);
+
+            if (playerOneEntity != null)
+            {
+                return playerOneEntity;
+            }
+            else if (playerTwoEntity != null)
+            {
+                return playerTwoEntity;
+            }
+            return null;
+        }
+
+        private Player GetPlayerById(int playerId)
+        {
+            return playerId == 1 ? playerOne : playerTwo;
         }
     }
 }

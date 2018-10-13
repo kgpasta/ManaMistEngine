@@ -12,7 +12,7 @@ public class Player
     private Phase CurrentPhase = Phase.WAITING;
     private int PhaseIndex = 0;
     private Dictionary<string, Entity> entities = new Dictionary<string, Entity>();
-    private Entity selectedEntity = null;
+    public Entity selectedEntity { get; set; } = null;
 
     public Player(int id, TurnController turnController)
     {

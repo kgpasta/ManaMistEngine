@@ -53,12 +53,25 @@ namespace ManaMistEngine
             switch (commandType)
             {
                 case CommandType.DESCRIBE:
-                    command = new DescribeCommand(new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])));
+                    if (inputs[1].ToLower() == "all")
+                    {
+                        command = new DescribeCommand(1);
+                    }
+                    else if (inputs.Length > 2)
+                    {
+                        command = new DescribeCommand(1, new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])));
+                    }
+                    else
+                    {
+                        command = new DescribeCommand(1, inputs[1]);
+                    }
+
                     break;
                 case CommandType.SELECT:
-                    command = new SelectCommand(inputs[1]);
+                    command = new SelectCommand(1, inputs[1]);
                     break;
                 case CommandType.MOVE:
+                    command = new MoveCommand(1, new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])));
                     break;
                 case CommandType.BUILD:
                     break;

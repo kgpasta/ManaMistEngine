@@ -9,25 +9,24 @@ namespace ManaMist.Commands
 
         public Coordinate coordinate { get; set; }
 
-        public DescribeCommand(Coordinate coordinate) : base(CommandType.DESCRIBE)
+        public DescribeCommand(int playerId, Coordinate coordinate) : base(playerId, CommandType.DESCRIBE)
         {
             this.coordinate = coordinate;
         }
 
-        public DescribeCommand(string entity) : base(CommandType.DESCRIBE)
+        public DescribeCommand(int playerId, string entity) : base(playerId, CommandType.DESCRIBE)
         {
             this.entity = entity;
         }
 
-        public DescribeCommand() : base(CommandType.DESCRIBE)
+        public DescribeCommand(int playerId) : base(playerId, CommandType.DESCRIBE)
         {
             this.describeAll = true;
         }
 
         public override string ToString()
         {
-            string inputValue = entity != null ? entity : coordinate.ToString();
-            string value = describeAll ? "All" : inputValue;
+            string value = describeAll ? "All" : entity != null ? entity : coordinate.ToString();
             return "Describing " + value;
         }
     }
