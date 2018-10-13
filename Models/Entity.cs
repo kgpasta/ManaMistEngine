@@ -12,14 +12,15 @@ namespace ManaMist.Models
 
         public Cost cost { get; set; }
 
-        public Entity(string id, string name, Cost cost)
+        public Entity(string name, Cost cost)
         {
-            this.id = id;
+            this.id = System.Guid.NewGuid().ToString();
             this.name = name;
             this.cost = cost;
         }
 
         public abstract bool CanMove(Coordinate start, Coordinate end);
+        public abstract bool CanBuild(Coordinate currentCoordinate, Coordinate buildingCoordinate);
 
         public override string ToString()
         {

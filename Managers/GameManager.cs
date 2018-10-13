@@ -50,7 +50,7 @@ namespace ManaMist.Managers
             {
                 case CommandType.DESCRIBE:
                     DescribeCommand describeCommand = (DescribeCommand)command;
-                    describeCommand.Execute(mapController, FindEntity(describeCommand.id));
+                    describeCommand.Execute(mapController, describeCommand.id != null ? FindEntity(describeCommand.id) : null);
                     break;
                 case CommandType.SELECT:
                     SelectCommand selectCommand = (SelectCommand)command;
@@ -61,6 +61,8 @@ namespace ManaMist.Managers
                     moveCommand.Execute(mapController, GetPlayerById(moveCommand.playerId).selectedEntity);
                     break;
                 case CommandType.BUILD:
+                    BuildCommand buildCommand = (BuildCommand)command;
+                    buildCommand.Execute(mapController, GetPlayerById(buildCommand.playerId), GetPlayerById(buildCommand.playerId).selectedEntity);
                     break;
                 default:
                     break;
@@ -70,12 +72,12 @@ namespace ManaMist.Managers
         private void SeedPlayer(Player player, int offset)
         {
             Coordinate townCenterCoordinate = new Coordinate(offset, offset);
-            TownCenter townCenter = new TownCenter("towncenter0-player" + player.id);
+            TownCenter townCenter = new TownCenter();
             player.AddEntity(townCenter);
             mapController.AddToMap(townCenterCoordinate, townCenter);
 
             Coordinate workerCoordinate = new Coordinate(offset + 1, offset + 1);
-            Worker worker = new Worker("worker0-player" + player.id);
+            Worker worker = new Worker();
             player.AddEntity(worker);
             mapController.AddToMap(workerCoordinate, worker);
         }

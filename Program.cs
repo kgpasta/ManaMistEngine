@@ -4,6 +4,7 @@ using ManaMist.Managers;
 using ManaMist.Processors;
 using ManaMist.Commands;
 using ManaMist.Utility;
+using ManaMist.Models;
 
 namespace ManaMistEngine
 {
@@ -74,6 +75,7 @@ namespace ManaMistEngine
                     command = new MoveCommand(1, new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])));
                     break;
                 case CommandType.BUILD:
+                    command = new BuildCommand(1, new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])), new Mine());
                     break;
                 default:
                     break;

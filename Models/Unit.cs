@@ -6,7 +6,7 @@ namespace ManaMist.Models
     {
         public int movementRange { get; set; }
 
-        public Unit(string id, string name, Cost cost, int movementRange) : base(id, name, cost)
+        public Unit(string name, Cost cost, int movementRange) : base(name, cost)
         {
             this.movementRange = movementRange;
         }
@@ -14,6 +14,11 @@ namespace ManaMist.Models
         public override bool CanMove(Coordinate start, Coordinate end)
         {
             return start.Distance(end) <= movementRange;
+        }
+
+        public override bool CanBuild(Coordinate currentCoordinate, Coordinate buildingCoordinate)
+        {
+            return false;
         }
     }
 }
