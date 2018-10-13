@@ -30,11 +30,25 @@ namespace ManaMist.Utility
             return string.Format("({0} , {1})", this.x, this.y);
         }
 
+        public int Distance(Coordinate coord)
+        {
+            return Math.Abs(this.x - coord.x) + Math.Abs(this.y - coord.y);
+        }
+
+        public bool IsNextTo(Coordinate coord)
+        {
+            return Distance(coord) == 1;
+        }
+
+        public bool IsDiagonal(Coordinate coord)
+        {
+            return Math.Abs(this.x - coord.x) == 1 && Math.Abs(this.y - coord.y) == 1;
+
+        }
+
         public bool IsAdjacent(Coordinate coord)
         {
-            bool nextTo = Math.Abs(this.x - coord.x) + Math.Abs(this.y - coord.y) == 1;
-            bool diagonal = Math.Abs(this.x - coord.x) == 1 && Math.Abs(this.y - coord.y) == 1;
-            return nextTo || diagonal;
+            return IsNextTo(coord) || IsDiagonal(coord);
         }
     }
 }

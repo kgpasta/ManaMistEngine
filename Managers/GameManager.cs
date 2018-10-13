@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ManaMist.Commands;
 using ManaMist.Controllers;
 using ManaMist.Models;
+using ManaMist.Players;
 using ManaMist.Processors;
 using ManaMist.Utility;
 
@@ -49,35 +50,17 @@ namespace ManaMist.Managers
             {
                 case CommandType.DESCRIBE:
                     DescribeCommand describeCommand = (DescribeCommand)command;
-                    if (describeCommand.coordinate != null)
-                    {
-                        List<Entity> entities = mapController.GetEntitiesAtCoordinate(describeCommand.coordinate);
-
-                        foreach (Entity entity in entities)
-                        {
-                            Console.WriteLine(entity.ToString());
-                        }
-                    }
-                    else if (describeCommand.entity != null)
-                    {
-                        Coordinate coordinate = mapController.GetPositionOfEntity(describeCommand.entity);
-                        if (coordinate != null)
-                        {
-                            Console.WriteLine(coordinate.ToString());
-                        }
-                        Entity entity = FindEntity(describeCommand.entity);
-                        Console.WriteLine(entity.ToString());
-
-                    }
+                    describeCommand.Execute(mapController, FindEntity(describeCommand.id));
                     break;
                 case CommandType.SELECT:
                     SelectCommand selectCommand = (SelectCommand)command;
-                    activePlayer.SelectEntity(selectCommand.id);
+                    selectCommand.Execute(mapController, GetPlayerById(selectCommand.playerId));
                     break;
                 case CommandType.MOVE:
                     MoveCommand moveCommand = (MoveCommand)command;
-                    Entity moveCommandEntity = GetPlayerById(moveCommand.playerId).selectedEntity;
-                    mapController.MoveEntity(moveCommand.coordinate, moveCommandEntity);
+                    moveCommand.Execute(mapController, GetPlayerById(moveCommand.playerId).selectedEntity);
+                    break;
+                case CommandType.BUILD:
                     break;
                 default:
                     break;

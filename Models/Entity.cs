@@ -1,3 +1,4 @@
+using ManaMist.Utility;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -17,6 +18,8 @@ namespace ManaMist.Models
             this.name = name;
             this.cost = cost;
         }
+
+        public abstract bool CanMove(Coordinate start, Coordinate end);
 
         public override string ToString()
         {

@@ -1,3 +1,6 @@
+using ManaMist.Controllers;
+using ManaMist.Players;
+
 namespace ManaMist.Commands
 {
     public enum CommandType
