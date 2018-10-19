@@ -9,23 +9,27 @@ namespace ManaMist.Controllers
 {
     public class MapController
     {
-        private Dictionary<Coordinate, List<Entity>> coordinateToEntities { get; set; } = new Dictionary<Coordinate, List<Entity>>();
+        private Dictionary<Coordinate, MapTile> coordinateToMapTile { get; set; } = new Dictionary<Coordinate, MapTile>();
 
         private Dictionary<string, Coordinate> entityIdToCoordinate { get; set; } = new Dictionary<string, Coordinate>();
 
-        private const int MAP_DIMENSION = 100;
+        private const int MAP_DIMENSION = 50;
 
 
-        public MapController() { }
+        public MapController() {
+            for(int i = 0; i < MAP_DIMENSION; i++)
+            {
+                for(int j = 0; j < MAP_DIMENSION; j++)
+                {
+                    Coordinate coordinate = new Coordinate(i, j);
+                    coordinateToMapTile[coordinate] = new MapTile(Terrain.GRASS);
+                }
+            }
+        }
 
         public void AddToMap(Coordinate coordinate, Entity entity)
         {
-            if (!coordinateToEntities.ContainsKey(coordinate))
-            {
-                coordinateToEntities[coordinate] = new List<Entity>();
-            }
-
-            coordinateToEntities[coordinate].Add(entity);
+            coordinateToMapTile[coordinate].entities.Add(entity);
 
             entityIdToCoordinate[entity.id] = coordinate;
         }
@@ -42,9 +46,9 @@ namespace ManaMist.Controllers
 
         public List<Entity> GetEntitiesAtCoordinate(Coordinate coordinate)
         {
-            if (coordinateToEntities.ContainsKey(coordinate))
+            if (coordinateToMapTile.ContainsKey(coordinate))
             {
-                return coordinateToEntities[coordinate];
+                return coordinateToMapTile[coordinate].entities;
             }
 
             return new List<Entity>();
@@ -56,9 +60,9 @@ namespace ManaMist.Controllers
             {
                 Coordinate current = entityIdToCoordinate[entity.id];
 
-                if (coordinateToEntities.ContainsKey(current))
+                if (coordinateToMapTile.ContainsKey(current))
                 {
-                    coordinateToEntities[current].Remove(entity);
+                    coordinateToMapTile[current].entities.Remove(entity);
                 }
 
                 entityIdToCoordinate.Remove(entity.id);
