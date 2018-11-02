@@ -1,3 +1,4 @@
+using ManaMist.Actions;
 using ManaMist.Utility;
 
 namespace ManaMist.Models
@@ -6,9 +7,11 @@ namespace ManaMist.Models
     {
         public Worker() : base("Worker", new Cost(), 3)
         {
+            BuildAction buildAction = new BuildAction(CanBuild);
+            this.actions.Add(ActionType.BUILD, buildAction);
         }
 
-        public override bool CanBuild(Coordinate currentCoordinate, Coordinate buildingCoordinate)
+        public bool CanBuild(Coordinate currentCoordinate, Coordinate buildingCoordinate)
         {
             if (currentCoordinate.IsAdjacent(buildingCoordinate))
             {

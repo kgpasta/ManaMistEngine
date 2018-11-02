@@ -1,3 +1,4 @@
+using ManaMist.Actions;
 using ManaMist.Controllers;
 using ManaMist.Models;
 using ManaMist.Players;
@@ -16,15 +17,19 @@ namespace ManaMist.Commands
         public bool Execute(MapController mapController, Entity entity)
         {
             Coordinate startCoordinate = mapController.GetPositionOfEntity(entity.id);
-            if (entity.CanMove(startCoordinate, coordinate))
+            Action action = entity.GetAction(ActionType.MOVE);
+
+            if (action != null)
             {
-                mapController.MoveEntity(coordinate, entity);
+                MoveAction moveAction = (MoveAction)action;
+                if (moveAction.CanMove(startCoordinate, coordinate))
+                {
+                    mapController.MoveEntity(coordinate, entity);
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
-            return true;
+
+            return false;
         }
 
         public override string ToString()

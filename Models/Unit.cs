@@ -1,3 +1,4 @@
+using ManaMist.Actions;
 using ManaMist.Utility;
 
 namespace ManaMist.Models
@@ -9,16 +10,14 @@ namespace ManaMist.Models
         public Unit(string name, Cost cost, int movementRange) : base(name, cost)
         {
             this.movementRange = movementRange;
+
+            MoveAction moveAction = new MoveAction(CanMove);
+            this.actions.Add(ActionType.MOVE, moveAction);
         }
 
-        public override bool CanMove(Coordinate start, Coordinate end)
+        public bool CanMove(Coordinate start, Coordinate end)
         {
             return start.Distance(end) <= movementRange;
-        }
-
-        public override bool CanBuild(Coordinate currentCoordinate, Coordinate buildingCoordinate)
-        {
-            return false;
         }
     }
 }

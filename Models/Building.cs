@@ -10,15 +10,5 @@ namespace ManaMist.Models
         {
             this.buildTurns = buildTurns;
         }
-
-        public override bool CanMove(Coordinate start, Coordinate end)
-        {
-            return false;
-        }
-
-        public override bool CanBuild(Coordinate currentCoordinate, Coordinate buildingCoordinate)
-        {
-            return false;
-        }
     }
 }

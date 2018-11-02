@@ -1,3 +1,4 @@
+using ManaMist.Actions;
 using ManaMist.Controllers;
 using ManaMist.Models;
 using ManaMist.Players;
@@ -19,17 +20,21 @@ namespace ManaMist.Commands
         public bool Execute(MapController mapController, Player player, Entity entity)
         {
             Coordinate currentCoordinate = mapController.GetPositionOfEntity(entity.id);
-            if (entity.CanBuild(currentCoordinate, coordinate))
+
+            Action action = entity.GetAction(ActionType.BUILD);
+
+            if (action != null)
             {
-                mapController.AddToMap(coordinate, building);
-                player.AddEntity(building);
-            }
-            else
-            {
-                return false;
+                BuildAction buildAction = (BuildAction)action;
+                if (buildAction.CanBuild(currentCoordinate, coordinate))
+                {
+                    mapController.AddToMap(coordinate, building);
+                    player.AddEntity(building);
+                    return true;
+                }
             }
 
-            return true;
+            return false;
         }
 
         public override string ToString()
