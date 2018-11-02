@@ -16,7 +16,7 @@ namespace ManaMist.Actions
 
     public enum ActionType
     {
-        MOVE, BUILD
+        MOVE, BUILD, HARVEST
     }
 
     public class ActionConverter : JsonConverter

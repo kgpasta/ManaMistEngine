@@ -8,7 +8,7 @@ namespace ManaMist.Models
         public Worker() : base("Worker", new Cost(), 3)
         {
             BuildAction buildAction = new BuildAction(CanBuild);
-            this.actions.Add(ActionType.BUILD, buildAction);
+            this.AddAction(buildAction);
         }
 
         public bool CanBuild(Coordinate currentCoordinate, Coordinate buildingCoordinate)

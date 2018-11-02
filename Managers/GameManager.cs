@@ -30,6 +30,8 @@ namespace ManaMist.Managers
             playerTwo = new Player(1, turnController);
             SeedPlayer(playerTwo, 10);
             activePlayer = playerOne;
+
+            turnController.StartTurns();
         }
 
         private void setActivePlayer(object sender, TurnEventArgs args)
@@ -75,6 +77,11 @@ namespace ManaMist.Managers
             TownCenter townCenter = new TownCenter();
             player.AddEntity(townCenter);
             mapController.AddToMap(townCenterCoordinate, townCenter);
+
+            Coordinate mineCoordinate = new Coordinate(offset + 2, offset + 2);
+            Mine mine = new Mine();
+            player.AddEntity(mine);
+            mapController.AddToMap(mineCoordinate, mine);
 
             Coordinate workerCoordinate = new Coordinate(offset + 1, offset + 1);
             Worker worker = new Worker();

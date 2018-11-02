@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ManaMist.Actions;
 using ManaMist.Controllers;
 using ManaMist.Models;
 using ManaMist.Utility;
@@ -16,6 +17,7 @@ namespace ManaMist.Players
         private int PhaseIndex = 0;
         private Dictionary<string, Entity> entities = new Dictionary<string, Entity>();
         public Entity selectedEntity { get; set; } = null;
+        public Cost resources { get; set; } = new Cost();
 
         public Player(int id, TurnController turnController)
         {
@@ -27,9 +29,28 @@ namespace ManaMist.Players
 
         private void InitializeTurn(object sender, TurnEventArgs args)
         {
-            if (args.player == id && args.turnNumber != 0)
+            if (args.player == id)
             {
                 CurrentPhase = Phases[PhaseIndex];
+
+                IncrementResources();
+
+                Console.WriteLine("Player " + id + " has " + resources);
+            }
+        }
+
+        private void IncrementResources()
+        {
+            foreach (Entity entity in entities.Values)
+            {
+                Actions.Action action = entity.GetAction(ActionType.HARVEST);
+
+                if (action != null)
+                {
+                    HarvestAction harvestAction = (HarvestAction)action;
+                    resources.Increment(harvestAction.GetHarvestAmount());
+                }
+
             }
         }
 

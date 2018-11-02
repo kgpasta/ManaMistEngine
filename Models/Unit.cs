@@ -12,7 +12,7 @@ namespace ManaMist.Models
             this.movementRange = movementRange;
 
             MoveAction moveAction = new MoveAction(CanMove);
-            this.actions.Add(ActionType.MOVE, moveAction);
+            this.AddAction(moveAction);
         }
 
         public bool CanMove(Coordinate start, Coordinate end)

@@ -14,7 +14,7 @@ namespace ManaMist.Models
 
         public Cost cost { get; set; }
 
-        public Dictionary<ActionType, Action> actions { get; set; }
+        private Dictionary<ActionType, Action> actions { get; set; }
 
         public Entity(string name, Cost cost)
         {
@@ -24,9 +24,18 @@ namespace ManaMist.Models
             this.actions = new Dictionary<ActionType, Action>();
         }
 
+        public void AddAction(Action action)
+        {
+            actions[action.type] = action;
+        }
+
         public Action GetAction(ActionType type)
         {
-            return actions[type];
+            if (actions.ContainsKey(type))
+            {
+                return actions[type];
+            }
+            return null;
         }
 
         public override string ToString()
