@@ -19,9 +19,12 @@ namespace ManaMist.Managers
 
         private MapController mapController;
 
+        private TurnController turnController;
+
         public GameManager(TurnController turnController, MapController mapController)
         {
             this.mapController = mapController;
+            this.turnController = turnController;
 
             turnController.OnTurnStart += setActivePlayer;
 
@@ -65,6 +68,10 @@ namespace ManaMist.Managers
                 case CommandType.BUILD:
                     BuildCommand buildCommand = (BuildCommand)command;
                     buildCommand.Execute(mapController, GetPlayerById(buildCommand.playerId), GetPlayerById(buildCommand.playerId).selectedEntity);
+                    break;
+                case CommandType.ENDTURN:
+                    EndTurnCommand endTurnCommand = (EndTurnCommand)command;
+                    endTurnCommand.Execute(turnController);
                     break;
                 default:
                     break;

@@ -77,6 +77,9 @@ namespace ManaMistEngine
                 case CommandType.BUILD:
                     command = new BuildCommand(1, new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])), new Mine());
                     break;
+                case CommandType.ENDTURN:
+                    command = new EndTurnCommand(1);
+                    break;
                 default:
                     break;
             }

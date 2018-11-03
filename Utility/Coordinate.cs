@@ -43,7 +43,6 @@ namespace ManaMist.Utility
         public bool IsDiagonal(Coordinate coord)
         {
             return Math.Abs(this.x - coord.x) == 1 && Math.Abs(this.y - coord.y) == 1;
-
         }
 
         public bool IsAdjacent(Coordinate coord)

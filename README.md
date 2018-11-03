@@ -3,9 +3,7 @@
 ## Todo:
 
 ### Player
-- build command
 - undo/redo command
-- resource count
 
 ### Map
 - seeded resources
