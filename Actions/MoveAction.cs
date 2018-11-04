@@ -1,3 +1,6 @@
+using ManaMist.Controllers;
+using ManaMist.Models;
+using ManaMist.Players;
 using ManaMist.Utility;
 
 namespace ManaMist.Actions
@@ -12,5 +15,16 @@ namespace ManaMist.Actions
         }
 
         public delegate bool CanMoveFunction(Coordinate start, Coordinate end);
+
+        public override bool CanExecute(MapController mapController, Player player, Entity entity, Coordinate coordinate, Entity target)
+        {
+            Coordinate startCoordinate = mapController.GetPositionOfEntity(entity.id);
+            return CanMove(startCoordinate, coordinate);
+        }
+
+        public override void Execute(MapController mapController, Player player, Entity entity, Coordinate coordinate, Entity target)
+        {
+            mapController.MoveEntity(coordinate, entity);
+        }
     }
 }

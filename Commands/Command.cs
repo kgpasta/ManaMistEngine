@@ -5,7 +5,7 @@ namespace ManaMist.Commands
 {
     public enum CommandType
     {
-        DESCRIBE, SELECT, MOVE, BUILD, ENDTURN
+        DESCRIBE, SELECT, PERFORMACTION, ENDTURN
     }
 
     public abstract class Command

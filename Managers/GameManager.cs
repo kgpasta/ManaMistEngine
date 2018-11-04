@@ -61,13 +61,9 @@ namespace ManaMist.Managers
                     SelectCommand selectCommand = (SelectCommand)command;
                     selectCommand.Execute(mapController, GetPlayerById(selectCommand.playerId));
                     break;
-                case CommandType.MOVE:
-                    MoveCommand moveCommand = (MoveCommand)command;
-                    moveCommand.Execute(mapController, GetPlayerById(moveCommand.playerId).selectedEntity);
-                    break;
-                case CommandType.BUILD:
-                    BuildCommand buildCommand = (BuildCommand)command;
-                    buildCommand.Execute(mapController, GetPlayerById(buildCommand.playerId), GetPlayerById(buildCommand.playerId).selectedEntity);
+                case CommandType.PERFORMACTION:
+                    PerformActionCommand performActionCommand = (PerformActionCommand)command;
+                    performActionCommand.Execute(mapController, GetPlayerById(performActionCommand.playerId), GetPlayerById(performActionCommand.playerId).selectedEntity);
                     break;
                 case CommandType.ENDTURN:
                     EndTurnCommand endTurnCommand = (EndTurnCommand)command;

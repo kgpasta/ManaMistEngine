@@ -11,13 +11,9 @@ namespace ManaMist.Models
             this.AddAction(buildAction);
         }
 
-        public bool CanBuild(Coordinate currentCoordinate, Coordinate buildingCoordinate)
+        public bool CanBuild(Coordinate currentCoordinate, Coordinate buildingCoordinate, Entity entity)
         {
-            if (currentCoordinate.IsAdjacent(buildingCoordinate))
-            {
-                return true;
-            }
-            return false;
+            return currentCoordinate.IsAdjacent(buildingCoordinate) && entity is Building;
         }
     }
 }

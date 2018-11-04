@@ -5,6 +5,7 @@ using ManaMist.Processors;
 using ManaMist.Commands;
 using ManaMist.Utility;
 using ManaMist.Models;
+using ManaMist.Actions;
 
 namespace ManaMistEngine
 {
@@ -71,11 +72,8 @@ namespace ManaMistEngine
                 case CommandType.SELECT:
                     command = new SelectCommand(1, inputs[1]);
                     break;
-                case CommandType.MOVE:
-                    command = new MoveCommand(1, new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])));
-                    break;
-                case CommandType.BUILD:
-                    command = new BuildCommand(1, new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])), new Mine());
+                case CommandType.PERFORMACTION:
+                    command = new PerformActionCommand(1, new Coordinate(Int32.Parse(inputs[1]), Int32.Parse(inputs[2])), new Mine(), ActionType.BUILD);
                     break;
                 case CommandType.ENDTURN:
                     command = new EndTurnCommand(1);

@@ -1,4 +1,8 @@
 using System;
+using ManaMist.Controllers;
+using ManaMist.Models;
+using ManaMist.Players;
+using ManaMist.Utility;
 using Newtonsoft.Json;
 
 namespace ManaMist.Actions
@@ -12,6 +16,14 @@ namespace ManaMist.Actions
             this.type = type;
         }
 
+        public virtual bool CanExecute(MapController mapController, Player player, Entity entity, Coordinate coordinate, Entity target)
+        {
+            return true;
+        }
+
+        public virtual void Execute(MapController mapController, Player player, Entity entity, Coordinate coordinate, Entity target)
+        {
+        }
     }
 
     public enum ActionType
