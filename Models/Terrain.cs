@@ -2,6 +2,6 @@
 {
     public enum Terrain
     {
-        GRASS, HILL, MOUNTAIN, WATER, DESERT, FOREST, SWAMP
+        NONE, GRASS, HILL, MOUNTAIN, WATER, DESERT, FOREST, SWAMP
     }
 }

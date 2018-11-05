@@ -2,6 +2,6 @@ namespace ManaMist.Models
 {
     public enum Resource
     {
-        FOOD, METAL, MANA
+        NONE, FOOD, METAL, MANA
     }
 }

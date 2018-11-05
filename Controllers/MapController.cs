@@ -1,4 +1,5 @@
 using System;
+using System.IO.File;
 using System.Collections;
 using System.Collections.Generic;
 using ManaMist.Controllers;
@@ -17,14 +18,7 @@ namespace ManaMist.Controllers
 
 
         public MapController() {
-            for(int i = 0; i < MAP_DIMENSION; i++)
-            {
-                for(int j = 0; j < MAP_DIMENSION; j++)
-                {
-                    Coordinate coordinate = new Coordinate(i, j);
-                    coordinateToMapTile[coordinate] = new MapTile(Terrain.GRASS);
-                }
-            }
+            //SetupMap("filename");
         }
 
         public void AddToMap(Coordinate coordinate, Entity entity)
@@ -76,6 +70,91 @@ namespace ManaMist.Controllers
                 RemoveFromMap(entity);
                 AddToMap(coordinate, entity);
             }
+        }
+
+        private void SetupMap(string mapFilePath)
+        {
+            int count = 0;
+            string[] allMapText = ReadAllText(mapFilePath).Split(',');
+
+            for (int i = 0; i < MAP_DIMENSION; i++)
+            {
+                for (int j = 0; j < MAP_DIMENSION; j++)
+                {
+                    Coordinate coordinate = new Coordinate(i, j);
+
+                    if (allMapText[count].Length < 2)
+                    {
+                        coordinateToMapTile[coordinate] = new MapTile(CharToTerrain(allMapText[count]));
+                    }
+                    else
+                    {
+                        // Add resource too
+                    }
+
+                    count++;
+                }
+            }
+        }
+
+        private Resource StringToResource(string str)
+        {
+            Resource resource = Resource.NONE;
+
+            switch (str)
+            {
+                case "F":
+                    resource = Resource.FOOD;
+                    break;
+
+                case "Ma":
+                    resource = Resource.MANA;
+                    break;
+
+                case "Me":
+                    resource = Resource.METAL;
+                    break;
+            }
+
+            return resource;
+        }
+
+        private Terrain CharToTerrain(char character)
+        {
+            Terrain terrain = Terrain.NONE;
+
+            switch (character)
+            {
+                case 'G':
+                    terrain = Terrain.GRASS;
+                    break;
+
+                case 'H':
+                    terrain = Terrain.HILL;
+                    break;
+
+                case 'F':
+                    terrain = Terrain.FOREST;
+                    break;
+
+                case 'M':
+                    terrain = Terrain.MOUNTAIN;
+                    break;
+
+                case 'W':
+                    terrain = Terrain.WATER;
+                    break;
+
+                case 'S':
+                    terrain = Terrain.SWAMP;
+                    break;
+
+                case 'D':
+                    terrain = Terrain.DESERT;
+                    break;
+            }
+
+            return terrain;
         }
 
     }
