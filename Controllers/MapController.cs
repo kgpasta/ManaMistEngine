@@ -83,18 +83,28 @@ namespace ManaMist.Controllers
                 {
                     Coordinate coordinate = new Coordinate(i, j);
 
-                    if (allMapText[count].Length < 2)
-                    {
-                        coordinateToMapTile[coordinate] = new MapTile(CharToTerrain(allMapText[count]));
-                    }
-                    else
-                    {
-                        // Add resource too
-                    }
+                    coordinateToMapTile[coordinate] = StringToMapTile(allMapText[count]);
 
                     count++;
                 }
             }
+        }
+
+        private MapTile StringToMapTile(string str)
+        {
+            Terrain terrain = Terrain.NONE;
+            Resource resource = Resource.NONE;
+
+            char[] charArr = str.ToCharArray();
+
+            Terrain terrain = CharToTerrain(charArr[0]);
+
+            if (charArr.Length > 1)
+            {
+                Resource resource = StringToResource(charArr.Length > 2 ? charArr[1] + charArr[2] : charArr[1]);
+            }
+
+            return new MapTile(terrain, resource);
         }
 
         private Resource StringToResource(string str)

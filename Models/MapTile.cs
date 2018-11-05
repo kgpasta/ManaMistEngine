@@ -10,11 +10,11 @@ namespace ManaMist.Models
         public Terrain terrain { get; set; }
         public Resource resource { get; set; }
         public List<Entity> entities { get; set; }
-        
 
-        public MapTile(Terrain terrain)
+        public MapTile(Terrain terrain, Resource resource)
         {
             this.terrain = terrain;
+            this.resource = resource;
             this.entities = new List<Entity>();
         }
     }
