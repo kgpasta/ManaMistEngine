@@ -1,5 +1,5 @@
 using System;
-using System.IO.File;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using ManaMist.Controllers;
@@ -17,8 +17,9 @@ namespace ManaMist.Controllers
         private const int MAP_DIMENSION = 50;
 
 
-        public MapController() {
-            //SetupMap("filename");
+        public MapController()
+        {
+            SetupMap("Maps/map1.csv");
         }
 
         public void AddToMap(Coordinate coordinate, Entity entity)
@@ -38,14 +39,9 @@ namespace ManaMist.Controllers
             return null;
         }
 
-        public List<Entity> GetEntitiesAtCoordinate(Coordinate coordinate)
+        public MapTile GetMapTileAtCoordinate(Coordinate coordinate)
         {
-            if (coordinateToMapTile.ContainsKey(coordinate))
-            {
-                return coordinateToMapTile[coordinate].entities;
-            }
-
-            return new List<Entity>();
+            return coordinateToMapTile[coordinate];
         }
 
         public void RemoveFromMap(Entity entity)
@@ -74,18 +70,16 @@ namespace ManaMist.Controllers
 
         private void SetupMap(string mapFilePath)
         {
-            int count = 0;
-            string[] allMapText = ReadAllText(mapFilePath).Split(',');
+            string[] allMapText = File.ReadAllLines(mapFilePath);
 
             for (int i = 0; i < MAP_DIMENSION; i++)
             {
+                string[] lineMapText = allMapText[i].Split(",");
                 for (int j = 0; j < MAP_DIMENSION; j++)
                 {
                     Coordinate coordinate = new Coordinate(i, j);
 
-                    coordinateToMapTile[coordinate] = StringToMapTile(allMapText[count]);
-
-                    count++;
+                    coordinateToMapTile[coordinate] = StringToMapTile(lineMapText[j]);
                 }
             }
         }
@@ -97,11 +91,11 @@ namespace ManaMist.Controllers
 
             char[] charArr = str.ToCharArray();
 
-            Terrain terrain = CharToTerrain(charArr[0]);
+            terrain = CharToTerrain(charArr[0]);
 
             if (charArr.Length > 1)
             {
-                Resource resource = StringToResource(charArr.Length > 2 ? charArr[1] + charArr[2] : charArr[1]);
+                resource = StringToResource(charArr.Length > 2 ? (charArr[1] + charArr[2]).ToString() : charArr[1].ToString());
             }
 
             return new MapTile(terrain, resource);

@@ -33,9 +33,15 @@ namespace ManaMist.Commands
         {
             if (coordinate != null)
             {
-                List<Entity> entities = mapController.GetEntitiesAtCoordinate(coordinate);
+                MapTile mapTile = mapController.GetMapTileAtCoordinate(coordinate);
 
-                foreach (Entity e in entities)
+                Console.WriteLine(mapTile.terrain.ToString());
+                if (!mapTile.resource.Equals(Resource.NONE))
+                {
+                    Console.WriteLine(mapTile.resource.ToString());
+                }
+
+                foreach (Entity e in mapTile.entities)
                 {
                     Console.WriteLine(e.ToString());
                 }

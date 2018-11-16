@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ManaMist.Models
 {
-    class MapTile
+    public class MapTile
     {
         public Terrain terrain { get; set; }
         public Resource resource { get; set; }
